@@ -16,7 +16,7 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
               <Heart className="h-5 w-5 text-primary-foreground" />
             </div>
             <span className="font-display text-xl font-bold text-foreground">
-              PashuSeva
+              Know Your Animal
             </span>
           </Link>
 
