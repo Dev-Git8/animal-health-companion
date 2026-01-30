@@ -13,7 +13,7 @@ const Footer = () => {
                 <Heart className="h-5 w-5 text-primary" />
               </div>
               <span className="font-display text-xl font-bold">
-                PashuSeva
+                Know Your Animal
               </span>
             </div>
             <p className="text-primary-foreground/80 max-w-md">
@@ -52,7 +52,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-4">Contact</h4>
             <ul className="space-y-2 text-primary-foreground/80">
-              <li>support@pashuseva.in</li>
+              <li>support@knowyouranimal.in</li>
               <li>+91 1800 XXX XXXX</li>
               <li>Mon - Sat: 9AM - 6PM</li>
             </ul>
@@ -60,7 +60,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-10 pt-6 text-center text-primary-foreground/60">
-          <p>© 2026 PashuSeva. Made with ❤️ for Indian animals.</p>
+          <p>© 2026 Know Your Animal. Made with ❤️ for Indian animals.</p>
         </div>
       </div>
     </footer>
