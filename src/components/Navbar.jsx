@@ -1,10 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, User, LogOut } from "lucide-react";
 import LanguageDropdown from "./LanguageDropdown";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = ({ selectedLanguage, onLanguageChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
+
+  const getUserDisplayName = () => {
+    if (!user) return "";
+    return user.email?.split("@")[0] || "User";
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
@@ -42,12 +61,27 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
               selectedLanguage={selectedLanguage}
               onLanguageChange={onLanguageChange}
             />
-            <Link
-              to="/auth"
-              className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors"
-            >
-              Login
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors">
+                  <User className="h-4 w-4" />
+                  {getUserDisplayName()}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                to="/auth"
+                className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors"
+              >
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -85,12 +119,22 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
                   onLanguageChange={onLanguageChange}
                 />
               </div>
-              <Link
-                to="/auth"
-                className="mx-4 mt-2 px-5 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm text-center hover:bg-primary/90 transition-colors"
-              >
-                Login
-              </Link>
+              {user ? (
+                <button
+                  onClick={handleSignOut}
+                  className="mx-4 mt-2 px-5 py-2 rounded-full bg-destructive text-destructive-foreground font-medium text-sm text-center hover:bg-destructive/90 transition-colors flex items-center justify-center gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="mx-4 mt-2 px-5 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm text-center hover:bg-primary/90 transition-colors"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         )}
