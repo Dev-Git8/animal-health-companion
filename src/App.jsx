@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import Index from "./pages/Index.jsx";
 import Animals from "./pages/Animals.jsx";
+import AnimalDetail from "./pages/AnimalDetail.jsx";
 import Auth from "./pages/Auth.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
@@ -21,6 +22,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/animals" element={<Animals />} />
+            <Route path="/animals/:animalName" element={<AnimalDetail />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
