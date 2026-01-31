@@ -1,20 +1,103 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Heart, Mail, Lock, User, ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Heart, Mail, Lock, User, ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const { signIn, signUp, user } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setLoading(true);
+
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      toast({
+        title: "Error",
+        description: "Password must be at least 6 characters",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      if (isLogin) {
+        const { error } = await signIn(formData.email, formData.password);
+        if (error) {
+          let message = error.message;
+          if (error.message.includes("Invalid login credentials")) {
+            message = "Invalid email or password";
+          }
+          toast({
+            title: "Login Failed",
+            description: message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Welcome back!",
+            description: "You have successfully logged in",
+          });
+          navigate("/");
+        }
+      } else {
+        const { error } = await signUp(formData.email, formData.password);
+        if (error) {
+          let message = error.message;
+          if (error.message.includes("User already registered")) {
+            message = "An account with this email already exists";
+          }
+          toast({
+            title: "Sign Up Failed",
+            description: message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Account Created!",
+            description: "Please check your email to verify your account",
+          });
+        }
+      }
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -78,7 +161,7 @@ const Auth = () => {
                     onChange={handleChange}
                     placeholder="Enter your name"
                     className="input-nature w-full pl-12"
-                    required={!isLogin}
+                    disabled={loading}
                   />
                 </div>
               </div>
@@ -99,6 +182,7 @@ const Auth = () => {
                   placeholder="Enter your email"
                   className="input-nature w-full pl-12"
                   required
+                  disabled={loading}
                 />
               </div>
             </div>
@@ -118,11 +202,13 @@ const Auth = () => {
                   placeholder="Enter your password"
                   className="input-nature w-full pl-12 pr-12"
                   required
+                  disabled={loading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  disabled={loading}
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -143,8 +229,10 @@ const Auth = () => {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
+              disabled={loading}
+              className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
+              {loading && <Loader2 className="h-4 w-4 animate-spin" />}
               {isLogin ? "Sign In" : "Create Account"}
             </button>
           </form>
@@ -155,6 +243,7 @@ const Auth = () => {
             <button
               onClick={() => setIsLogin(!isLogin)}
               className="text-primary font-semibold hover:underline"
+              disabled={loading}
             >
               {isLogin ? "Sign Up" : "Sign In"}
             </button>
