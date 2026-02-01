@@ -44,9 +44,6 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
             <Link to="/" className="nav-link active">
               Home
             </Link>
-            <Link to="/diseases" className="nav-link">
-              Diseases
-            </Link>
             <Link to="/animals" className="nav-link">
               Animals
             </Link>
@@ -103,9 +100,6 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
             <div className="flex flex-col gap-2">
               <Link to="/" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
                 Home
-              </Link>
-              <Link to="/diseases" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
-                Diseases
               </Link>
               <Link to="/animals" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
                 Animals
