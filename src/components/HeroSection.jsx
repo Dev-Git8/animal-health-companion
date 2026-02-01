@@ -1,83 +1,11 @@
 import { Search } from "lucide-react";
 import heroAnimals from "@/assets/hero-animals.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/data/translations";
 
-const HeroSection = ({ searchQuery, onSearchChange, selectedLanguage }) => {
-  const translations = {
-    en: {
-      title: "Caring for Every Creature",
-      subtitle: "Find information about animal diseases, symptoms, and treatments in your preferred language",
-      placeholder: "Search animal diseases, symptoms...",
-      cta: "Search Now",
-    },
-    hi: {
-      title: "हर जीव की देखभाल",
-      subtitle: "अपनी पसंदीदा भाषा में पशु रोगों, लक्षणों और उपचारों के बारे में जानकारी प्राप्त करें",
-      placeholder: "पशु रोग, लक्षण खोजें...",
-      cta: "अभी खोजें",
-    },
-    bn: {
-      title: "প্রতিটি প্রাণীর যত্ন",
-      subtitle: "আপনার পছন্দের ভাষায় পশু রোগ, লক্ষণ এবং চিকিৎসা সম্পর্কে তথ্য খুঁজুন",
-      placeholder: "পশু রোগ, লক্ষণ খুঁজুন...",
-      cta: "এখনই খুঁজুন",
-    },
-    ta: {
-      title: "ஒவ்வொரு உயிரினத்தையும் கவனித்தல்",
-      subtitle: "உங்கள் விருப்பமான மொழியில் விலங்கு நோய்கள், அறிகுறிகள் மற்றும் சிகிச்சைகளைப் பற்றிய தகவல்களைக் கண்டறியுங்கள்",
-      placeholder: "விலங்கு நோய்கள், அறிகுறிகளைத் தேடு...",
-      cta: "இப்போது தேடு",
-    },
-    ml: {
-      title: "എല്ലാ ജീവികളെയും പരിപാലിക്കുന്നു",
-      subtitle: "നിങ്ങളുടെ ഇഷ്ട ഭാഷയിൽ മൃഗരോഗങ്ങൾ, ലക്ഷണങ്ങൾ, ചികിത്സകൾ എന്നിവയെക്കുറിച്ചുള്ള വിവരങ്ങൾ കണ്ടെത്തുക",
-      placeholder: "മൃഗരോഗങ്ങൾ, ലക്ഷണങ്ങൾ തിരയുക...",
-      cta: "ഇപ്പോൾ തിരയുക",
-    },
-    as: {
-      title: "প্ৰতিটো জীৱৰ যত্ন",
-      subtitle: "আপোনাৰ পছন্দৰ ভাষাত পশু ৰোগ, লক্ষণ আৰু চিকিৎসাৰ বিষয়ে তথ্য বিচাৰি উলিয়াওক",
-      placeholder: "পশু ৰোগ, লক্ষণ বিচাৰক...",
-      cta: "এতিয়াই বিচাৰক",
-    },
-    te: {
-      title: "ప్రతి జీవిని చూసుకోవడం",
-      subtitle: "మీ ఇష్టమైన భాషలో జంతు వ్యాధులు, లక్షణాలు మరియు చికిత్సల గురించి సమాచారాన్ని కనుగొనండి",
-      placeholder: "జంతు వ్యాధులు, లక్షణాలు వెతకండి...",
-      cta: "ఇప్పుడు వెతకండి",
-    },
-    kn: {
-      title: "ಪ್ರತಿ ಜೀವಿಯ ಕಾಳಜಿ",
-      subtitle: "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭಾಷೆಯಲ್ಲಿ ಪ್ರಾಣಿ ರೋಗಗಳು, ಲಕ್ಷಣಗಳು ಮತ್ತು ಚಿಕಿತ್ಸೆಗಳ ಬಗ್ಗೆ ಮಾಹಿತಿಯನ್ನು ಹುಡುಕಿ",
-      placeholder: "ಪ್ರಾಣಿ ರೋಗಗಳು, ಲಕ್ಷಣಗಳನ್ನು ಹುಡುಕಿ...",
-      cta: "ಈಗ ಹುಡುಕಿ",
-    },
-    mr: {
-      title: "प्रत्येक प्राण्याची काळजी",
-      subtitle: "तुमच्या पसंतीच्या भाषेत प्राण्यांचे रोग, लक्षणे आणि उपचारांबद्दल माहिती शोधा",
-      placeholder: "प्राण्यांचे रोग, लक्षणे शोधा...",
-      cta: "आता शोधा",
-    },
-    gu: {
-      title: "દરેક પ્રાણીની સંભાળ",
-      subtitle: "તમારી પસંદગીની ભાષામાં પ્રાણીઓના રોગો, લક્ષણો અને સારવાર વિશે માહિતી શોધો",
-      placeholder: "પ્રાણીઓના રોગો, લક્ષણો શોધો...",
-      cta: "હમણાં શોધો",
-    },
-    pa: {
-      title: "ਹਰ ਜੀਵ ਦੀ ਦੇਖਭਾਲ",
-      subtitle: "ਆਪਣੀ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ ਵਿੱਚ ਜਾਨਵਰਾਂ ਦੀਆਂ ਬਿਮਾਰੀਆਂ, ਲੱਛਣਾਂ ਅਤੇ ਇਲਾਜਾਂ ਬਾਰੇ ਜਾਣਕਾਰੀ ਲੱਭੋ",
-      placeholder: "ਜਾਨਵਰਾਂ ਦੀਆਂ ਬਿਮਾਰੀਆਂ, ਲੱਛਣ ਖੋਜੋ...",
-      cta: "ਹੁਣੇ ਖੋਜੋ",
-    },
-    or: {
-      title: "ପ୍ରତ୍ୟେକ ଜୀବର ଯତ୍ନ",
-      subtitle: "ଆପଣଙ୍କ ପସନ୍ଦର ଭାଷାରେ ପଶୁ ରୋଗ, ଲକ୍ଷଣ ଏବଂ ଚିକିତ୍ସା ବିଷୟରେ ସୂଚନା ଖୋଜନ୍ତୁ",
-      placeholder: "ପଶୁ ରୋଗ, ଲକ୍ଷଣ ଖୋଜନ୍ତୁ...",
-      cta: "ବର୍ତ୍ତମାନ ଖୋଜନ୍ତୁ",
-    },
-  };
-
-  const t = translations[selectedLanguage] || translations.en;
+const HeroSection = ({ searchQuery, onSearchChange }) => {
+  const { language } = useLanguage();
+  const t = translations[language]?.hero || translations.en.hero;
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -120,7 +48,7 @@ const HeroSection = ({ searchQuery, onSearchChange, selectedLanguage }) => {
 
           {/* Quick tags */}
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {["Foot and Mouth", "Mastitis", "Rabies", "Anthrax", "Tick Fever"].map((tag) => (
+            {t.tags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => onSearchChange(tag)}
