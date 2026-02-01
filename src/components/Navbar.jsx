@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Menu, X, Heart, User, LogOut } from "lucide-react";
 import LanguageDropdown from "./LanguageDropdown";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/data/translations";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Navbar = ({ selectedLanguage, onLanguageChange }) => {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
+
+  const t = translations[language] || translations.en;
 
   const handleSignOut = async () => {
     await signOut();
@@ -42,21 +47,21 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
             <Link to="/" className="nav-link active">
-              Home
+              {t.nav.home}
             </Link>
             <Link to="/animals" className="nav-link">
-              Animals
+              {t.nav.animals}
             </Link>
             <Link to="/about" className="nav-link">
-              About
+              {t.nav.about}
             </Link>
           </div>
 
           {/* Right side actions */}
           <div className="hidden md:flex items-center gap-4">
             <LanguageDropdown 
-              selectedLanguage={selectedLanguage}
-              onLanguageChange={onLanguageChange}
+              selectedLanguage={language}
+              onLanguageChange={setLanguage}
             />
             {user ? (
               <DropdownMenu>
@@ -67,7 +72,7 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
                     <LogOut className="h-4 w-4 mr-2" />
-                    Logout
+                    {t.nav.logout}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -76,7 +81,7 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
                 to="/auth"
                 className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors"
               >
-                Login
+                {t.nav.login}
               </Link>
             )}
           </div>
@@ -99,18 +104,18 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
           <div className="md:hidden py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-2">
               <Link to="/" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
-                Home
+                {t.nav.home}
               </Link>
               <Link to="/animals" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
-                Animals
+                {t.nav.animals}
               </Link>
               <Link to="/about" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
-                About
+                {t.nav.about}
               </Link>
               <div className="px-4 py-2">
                 <LanguageDropdown 
-                  selectedLanguage={selectedLanguage}
-                  onLanguageChange={onLanguageChange}
+                  selectedLanguage={language}
+                  onLanguageChange={setLanguage}
                 />
               </div>
               {user ? (
@@ -119,14 +124,14 @@ const Navbar = ({ selectedLanguage, onLanguageChange }) => {
                   className="mx-4 mt-2 px-5 py-2 rounded-full bg-destructive text-destructive-foreground font-medium text-sm text-center hover:bg-destructive/90 transition-colors flex items-center justify-center gap-2"
                 >
                   <LogOut className="h-4 w-4" />
-                  Logout
+                  {t.nav.logout}
                 </button>
               ) : (
                 <Link
                   to="/auth"
                   className="mx-4 mt-2 px-5 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm text-center hover:bg-primary/90 transition-colors"
                 >
-                  Login
+                  {t.nav.login}
                 </Link>
               )}
             </div>

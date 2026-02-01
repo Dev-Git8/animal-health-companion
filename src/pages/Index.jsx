@@ -5,21 +5,16 @@ import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar 
-        selectedLanguage={selectedLanguage}
-        onLanguageChange={setSelectedLanguage}
-      />
+      <Navbar />
       
       <main className="pt-16">
         <HeroSection 
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          selectedLanguage={selectedLanguage}
         />
         
         <FeaturesSection />

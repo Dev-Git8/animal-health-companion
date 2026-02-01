@@ -1,7 +1,13 @@
 import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/data/translations";
 
 const Footer = () => {
+  const { language } = useLanguage();
+  const t = translations[language]?.footer || translations.en.footer;
+  const nav = translations[language]?.nav || translations.en.nav;
+
   return (
     <footer className="bg-primary text-primary-foreground py-12">
       <div className="container mx-auto px-4">
@@ -17,32 +23,27 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-primary-foreground/80 max-w-md">
-              Dedicated to providing accessible animal healthcare information in multiple Indian languages. Together, we care for every creature.
+              {t.description}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Quick Links</h4>
+            <h4 className="font-semibold text-lg mb-4">{t.quickLinks}</h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/diseases" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                  Disease Database
+                  {nav.home}
                 </Link>
               </li>
               <li>
                 <Link to="/animals" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                  Animals
+                  {nav.animals}
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                  About Us
+                  {t.aboutUs}
                 </Link>
               </li>
             </ul>
@@ -50,7 +51,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Contact</h4>
+            <h4 className="font-semibold text-lg mb-4">{t.contact}</h4>
             <ul className="space-y-2 text-primary-foreground/80">
               <li>support@knowyouranimal.in</li>
               <li>+91 1800 XXX XXXX</li>
@@ -60,7 +61,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-10 pt-6 text-center text-primary-foreground/60">
-          <p>© 2026 Know Your Animal. Made with ❤️ for Indian animals.</p>
+          <p>{t.copyright}</p>
         </div>
       </div>
     </footer>
