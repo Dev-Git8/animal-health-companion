@@ -210,7 +210,8 @@ const HeroSection = () => {
                 />
               </div>
               <button
-                onClick={() => sendMessage()}
+                type="button"
+                onClick={(e) => { e.preventDefault(); sendMessage(); }}
                 disabled={!input.trim() || isLoading}
                 className="btn-hero disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
