@@ -6,7 +6,7 @@ import { translations } from "@/data/translations";
 
 const animals = [
   { id: 1, name: "cow", image: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&h=400&fit=crop" },
-  { id: 2, name: "buffalo", image: "https://images.unsplash.com/photo-1568708167498-2a22bc97ad69?w=400&h=400&fit=crop" },
+  
   { id: 3, name: "goat", image: "https://images.unsplash.com/photo-1524024973431-2ad916746881?w=400&h=400&fit=crop" },
   { id: 5, name: "dog", image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=400&fit=crop" },
   { id: 6, name: "cat", image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=400&fit=crop" },
