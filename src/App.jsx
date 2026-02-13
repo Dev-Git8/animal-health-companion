@@ -9,6 +9,7 @@ import Index from "./pages/Index.jsx";
 import Animals from "./pages/Animals.jsx";
 import AnimalDetail from "./pages/AnimalDetail.jsx";
 import Auth from "./pages/Auth.jsx";
+import Chat from "./pages/Chat.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
               <Route path="/animals" element={<Animals />} />
               <Route path="/animals/:animalName" element={<AnimalDetail />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/chat" element={<Chat />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
