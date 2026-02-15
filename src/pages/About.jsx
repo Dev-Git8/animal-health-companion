@@ -41,10 +41,10 @@ const About = () => {
                   Bridging the Gap in Animal Healthcare
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Millions of farmers in India depend on livestock for their livelihood, yet access to reliable veterinary information remains limited — especially in regional languages.
+                  Whether you're a farmer raising livestock, a pet parent caring for your companion, or simply someone who loves animals — access to reliable veterinary information remains limited, especially in regional languages.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  <strong className="text-foreground">Know Your Animal</strong> was built to solve this. We provide a free, multilingual platform where anyone can look up common animal diseases, understand symptoms, and learn about treatments — all in their own language.
+                  <strong className="text-foreground">Know Your Animal</strong> was built to change that. We provide a free, multilingual platform where anyone can look up common animal diseases, understand symptoms, and learn about treatments — all in their own language. From cattle and poultry to dogs and cats, we're here for every animal and every caretaker.
                 </p>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-lg">
