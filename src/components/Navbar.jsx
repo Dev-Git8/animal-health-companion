@@ -55,6 +55,9 @@ const Navbar = () => {
             <Link to="/about" className="nav-link">
               {t.nav.about}
             </Link>
+            <Link to="/vets" className="nav-link">
+              Vets
+            </Link>
           </div>
 
           {/* Right side actions */}
@@ -111,6 +114,9 @@ const Navbar = () => {
               </Link>
               <Link to="/about" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
                 {t.nav.about}
+              </Link>
+              <Link to="/vets" className="px-4 py-2 rounded-lg hover:bg-muted transition-colors">
+                Vets
               </Link>
               <div className="px-4 py-2">
                 <LanguageDropdown 
