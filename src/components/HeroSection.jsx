@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, MessageCircle } from "lucide-react";
+import { Send, MessageCircle, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroAnimals from "@/assets/hero-animals.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -32,23 +32,35 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background image */}
       <div className="absolute inset-0">
-        <img src={heroAnimals} alt="Indian animals" className="w-full h-full object-cover" />
+        <img
+          src={heroAnimals}
+          alt="Indian countryside"
+          className="w-full h-full object-cover scale-105"
+        />
         <div className="hero-overlay absolute inset-0" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 text-center">
-        <div className="max-w-3xl mx-auto animate-slide-up">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
-            {t.title}
-          </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/90 mb-10 max-w-2xl mx-auto">
-            {t.subtitle}
+      {/* Vignette edges */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        boxShadow: 'inset 0 0 150px 60px hsl(142 20% 5% / 0.6)',
+      }} />
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 text-center flex flex-col items-center justify-center min-h-screen pt-16">
+        <div className="max-w-4xl mx-auto animate-slide-up">
+          <p className="uppercase tracking-[0.35em] text-sm md:text-base font-medium text-primary-foreground/70 mb-6">
+            {t.subtitle || "Your trusted companion for animal health"}
           </p>
 
-          {/* Search / Ask bar */}
-          <div className="max-w-2xl mx-auto">
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-10 leading-[0.95] tracking-tight">
+            {t.title}
+          </h1>
+
+          {/* Search bar */}
+          <div className="max-w-2xl mx-auto mt-4">
             <div className="search-glass rounded-full p-2 flex items-center gap-2">
               <div className="flex-1 flex items-center gap-3 px-4">
                 <MessageCircle className="h-5 w-5 text-muted-foreground flex-shrink-0" />
@@ -78,7 +90,7 @@ const HeroSection = () => {
                 <button
                   key={q}
                   onClick={() => navigate("/chat", { state: { question: q } })}
-                  className="px-4 py-2 rounded-full bg-primary-foreground/20 text-primary-foreground text-sm font-medium hover:bg-primary-foreground/30 transition-colors backdrop-blur-sm"
+                  className="px-4 py-2 rounded-full border border-primary-foreground/20 text-primary-foreground/80 text-sm font-medium hover:bg-primary-foreground/10 transition-colors backdrop-blur-sm"
                 >
                   {q}
                 </button>
@@ -86,9 +98,12 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+        {/* Scroll indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-float">
+          <ChevronDown className="h-6 w-6 text-primary-foreground/50" />
+        </div>
+      </div>
     </section>
   );
 };
