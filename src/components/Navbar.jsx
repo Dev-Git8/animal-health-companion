@@ -32,6 +32,9 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-4">
             <LanguageDropdown selectedLanguage={language} onLanguageChange={setLanguage} />
+            <Link to="/auth" className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors">
+              Login
+            </Link>
           </div>
 
           <button
