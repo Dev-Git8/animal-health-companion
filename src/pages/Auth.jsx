@@ -45,7 +45,7 @@ const Auth = () => {
         </Link>
 
         {/* Glass card */}
-        <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/5 backdrop-blur-xl p-8 shadow-2xl">
+        <div className="rounded-2xl border border-border bg-card p-8 shadow-2xl">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-8">
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary">
