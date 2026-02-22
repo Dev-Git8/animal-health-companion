@@ -19,8 +19,12 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm">
+    <div className="min-h-screen bg-muted/40 flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      {/* Subtle decorative background elements */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-accent/30 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl opacity-50" />
+      <div className="w-full max-w-sm relative z-10">
         {/* Back link */}
         <Link
           to="/"
