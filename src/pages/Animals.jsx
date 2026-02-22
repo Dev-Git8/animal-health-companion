@@ -26,16 +26,26 @@ const Animals = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <main className="pt-16">
+        {/* Hero Banner */}
+        <section className="relative h-[50vh] min-h-[360px] overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1600&h=900&fit=crop"
+            alt="Animals in nature"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-foreground/60" />
+          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
               {t.title}
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl">
               {t.subtitle}
             </p>
           </div>
+        </section>
+
+        <div className="container mx-auto px-4 py-16">
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
             {animals.map((animal) => (
